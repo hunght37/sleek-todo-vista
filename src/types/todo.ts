@@ -6,4 +6,8 @@ export interface Todo {
   priority: 'low' | 'medium' | 'high';
   dueDate: string | null;
   isActive: boolean;
+  notes?: string;
+  subtasks?: Todo[];
+  recurring?: 'daily' | 'weekly' | 'monthly' | null;
+  reminder?: string | null;
 }
