@@ -15,6 +15,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "./ui/alert-dialog";
+import { Button } from "./ui/button";
 
 interface TodoItemProps {
   id: string;
@@ -156,7 +157,9 @@ const TodoItem = ({
             )}
           </div>
           <div className="flex items-center gap-2">
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={(e) => {
                 e.stopPropagation();
                 setIsEditing(!isEditing);
@@ -164,7 +167,7 @@ const TodoItem = ({
               className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
             >
               <Edit2 className="h-5 w-5 text-accent hover:text-white transition-colors" />
-            </button>
+            </Button>
             <button
               onClick={(e) => {
                 e.stopPropagation();

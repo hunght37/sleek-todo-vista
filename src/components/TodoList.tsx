@@ -65,7 +65,9 @@ const TodoList = () => {
     setDueDate("");
     setRecurring(null);
     setReminder("");
-    toast.success("Todo added successfully!");
+    toast.success("Todo added successfully!", {
+      duration: 2000 // 2 seconds
+    });
   };
 
   const completeTodo = (id: string) => {
