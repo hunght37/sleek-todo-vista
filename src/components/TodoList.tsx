@@ -172,149 +172,154 @@ const TodoList = () => {
     : 0;
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <div className="flex justify-between items-center mb-8">
-        <div className="flex items-center gap-4">
-          <Input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search tasks..."
-            className="w-64 bg-secondary/50 text-white"
-          />
-          <Button onClick={toggleTheme} variant="outline">
-            <SunMoon className="h-5 w-5" />
-          </Button>
-        </div>
-        <div className="flex items-center gap-2">
-          <Button onClick={exportTasks}>
-            <Download className="h-5 w-5" />
-          </Button>
-          <label className="cursor-pointer">
+    <div className="space-y-6">
+      <div className="bg-primary rounded-lg shadow-card p-6 space-y-6">
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-4">
             <Input
-              type="file"
-              accept=".json"
-              onChange={importTasks}
-              className="hidden"
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search tasks..."
+              className="w-64 bg-secondary border-0"
             />
-            <div className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">
-              <Upload className="h-5 w-5" />
-            </div>
-          </label>
-        </div>
-      </div>
-
-      <form onSubmit={addTodo} className="mb-8 space-y-4">
-        <div className="flex gap-2">
-          <Input
-            type="text"
-            value={newTodo}
-            onChange={(e) => setNewTodo(e.target.value)}
-            placeholder="Add a new todo..."
-            className="flex-1 bg-secondary/50 text-white"
-          />
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="bg-secondary/50 text-white rounded-lg p-3 outline-none focus:ring-2 focus:ring-accent/50"
-          >
-            <option value="Personal">Personal</option>
-            <option value="Work">Work</option>
-            <option value="Shopping">Shopping</option>
-          </select>
-          <Button type="submit" className="bg-accent hover:bg-accent/80">
-            <Plus className="h-6 w-6" />
-          </Button>
-        </div>
-
-        <div className="flex gap-4">
-          <select
-            value={priority}
-            onChange={(e) => setPriority(e.target.value as 'low' | 'medium' | 'high')}
-            className="bg-secondary/50 text-white rounded-lg p-3 outline-none focus:ring-2 focus:ring-accent/50"
-          >
-            <option value="low">Low Priority</option>
-            <option value="medium">Medium Priority</option>
-            <option value="high">High Priority</option>
-          </select>
-
-          <Input
-            type="date"
-            value={dueDate}
-            onChange={(e) => setDueDate(e.target.value)}
-            className="bg-secondary/50 text-white"
-          />
-
-          <select
-            value={recurring || ''}
-            onChange={(e) => setRecurring(e.target.value as 'daily' | 'weekly' | 'monthly' | null)}
-            className="bg-secondary/50 text-white rounded-lg p-3 outline-none focus:ring-2 focus:ring-accent/50"
-          >
-            <option value="">No Recurring</option>
-            <option value="daily">Daily</option>
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-          </select>
-
-          <Input
-            type="datetime-local"
-            value={reminder}
-            onChange={(e) => setReminder(e.target.value)}
-            className="bg-secondary/50 text-white"
-            placeholder="Set reminder"
-          />
-        </div>
-      </form>
-
-      <div className="flex justify-between items-center mb-6">
-        <div className="flex items-center gap-4">
-          <div className="text-accent">
-            {incompleteTasks.length} tasks remaining
+            <Button onClick={toggleTheme} variant="outline" size="icon">
+              <SunMoon className="h-5 w-5" />
+            </Button>
           </div>
-          <div className="text-accent">
-            Progress: {progress}%
+          <div className="flex items-center gap-2">
+            <Button onClick={exportTasks} variant="outline" size="icon">
+              <Download className="h-5 w-5" />
+            </Button>
+            <label className="cursor-pointer">
+              <Input
+                type="file"
+                accept=".json"
+                onChange={importTasks}
+                className="hidden"
+              />
+              <Button variant="outline" size="icon" asChild>
+                <div>
+                  <Upload className="h-5 w-5" />
+                </div>
+              </Button>
+            </label>
           </div>
         </div>
-        <div className="flex items-center gap-4">
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as SortBy)}
-            className="bg-secondary/50 text-white rounded-lg p-2 text-sm"
-          >
-            <option value="none">Sort by</option>
-            <option value="priority">Priority</option>
-            <option value="dueDate">Due Date</option>
-          </select>
+
+        <form onSubmit={addTodo} className="space-y-4">
           <div className="flex gap-2">
-            <Button
-              onClick={() => setFilterStatus('all')}
-              variant={filterStatus === 'all' ? 'default' : 'secondary'}
-              size="sm"
+            <Input
+              type="text"
+              value={newTodo}
+              onChange={(e) => setNewTodo(e.target.value)}
+              placeholder="Add a new todo..."
+              className="flex-1 bg-secondary border-0"
+            />
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="bg-secondary text-foreground rounded-lg px-4 py-2 border-0 outline-none focus:ring-2 focus:ring-accent"
             >
-              All
-            </Button>
-            <Button
-              onClick={() => setFilterStatus('active')}
-              variant={filterStatus === 'active' ? 'default' : 'secondary'}
-              size="sm"
-            >
-              Active
-            </Button>
-            <Button
-              onClick={() => setFilterStatus('completed')}
-              variant={filterStatus === 'completed' ? 'default' : 'secondary'}
-              size="sm"
-            >
-              Completed
+              <option value="Personal">Personal</option>
+              <option value="Work">Work</option>
+              <option value="Shopping">Shopping</option>
+            </select>
+            <Button type="submit" variant="default">
+              <Plus className="h-5 w-5" />
             </Button>
           </div>
-          <Button
-            onClick={clearCompleted}
-            variant="secondary"
-            className="text-accent hover:text-white"
-          >
-            Clear Completed
-          </Button>
+
+          <div className="flex gap-4">
+            <select
+              value={priority}
+              onChange={(e) => setPriority(e.target.value as 'low' | 'medium' | 'high')}
+              className="bg-secondary text-foreground rounded-lg px-4 py-2 border-0 outline-none focus:ring-2 focus:ring-accent"
+            >
+              <option value="low">Low Priority</option>
+              <option value="medium">Medium Priority</option>
+              <option value="high">High Priority</option>
+            </select>
+
+            <Input
+              type="date"
+              value={dueDate}
+              onChange={(e) => setDueDate(e.target.value)}
+              className="bg-secondary border-0"
+            />
+
+            <select
+              value={recurring || ''}
+              onChange={(e) => setRecurring(e.target.value as 'daily' | 'weekly' | 'monthly' | null)}
+              className="bg-secondary text-foreground rounded-lg px-4 py-2 border-0 outline-none focus:ring-2 focus:ring-accent"
+            >
+              <option value="">No Recurring</option>
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+            </select>
+
+            <Input
+              type="datetime-local"
+              value={reminder}
+              onChange={(e) => setReminder(e.target.value)}
+              className="bg-secondary border-0"
+              placeholder="Set reminder"
+            />
+          </div>
+        </form>
+
+        <div className="flex justify-between items-center border-t border-gray-100 pt-4">
+          <div className="flex items-center gap-4">
+            <div className="text-secondary-foreground">
+              {incompleteTasks.length} tasks remaining
+            </div>
+            <div className="text-secondary-foreground">
+              Progress: {progress}%
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as SortBy)}
+              className="bg-secondary text-foreground rounded-lg px-3 py-1 text-sm border-0"
+            >
+              <option value="none">Sort by</option>
+              <option value="priority">Priority</option>
+              <option value="dueDate">Due Date</option>
+            </select>
+            <div className="flex gap-2">
+              <Button
+                onClick={() => setFilterStatus('all')}
+                variant={filterStatus === 'all' ? 'default' : 'outline'}
+                size="sm"
+              >
+                All
+              </Button>
+              <Button
+                onClick={() => setFilterStatus('active')}
+                variant={filterStatus === 'active' ? 'default' : 'outline'}
+                size="sm"
+              >
+                Active
+              </Button>
+              <Button
+                onClick={() => setFilterStatus('completed')}
+                variant={filterStatus === 'completed' ? 'default' : 'outline'}
+                size="sm"
+              >
+                Completed
+              </Button>
+            </div>
+            <Button
+              onClick={clearCompleted}
+              variant="ghost"
+              size="sm"
+              className="text-secondary-foreground hover:text-foreground"
+            >
+              Clear Completed
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -325,8 +330,8 @@ const TodoList = () => {
       >
         <div className="space-y-6">
           {incompleteTasks.length > 0 && (
-            <div>
-              <h2 className="text-lg font-semibold mb-4 text-white">Active Tasks</h2>
+            <div className="bg-primary rounded-lg shadow-card p-6">
+              <h2 className="text-lg font-semibold mb-4 text-foreground">Active Tasks</h2>
               <SortableContext
                 items={incompleteTasks.map(todo => todo.id)}
                 strategy={verticalListSortingStrategy}
@@ -349,8 +354,8 @@ const TodoList = () => {
           )}
 
           {completedTasks.length > 0 && (
-            <div>
-              <h2 className="text-lg font-semibold mb-4 text-white">Completed Tasks</h2>
+            <div className="bg-primary rounded-lg shadow-card p-6">
+              <h2 className="text-lg font-semibold mb-4 text-foreground">Completed Tasks</h2>
               <div className="space-y-2">
                 {completedTasks.map((todo) => (
                   <TodoItem

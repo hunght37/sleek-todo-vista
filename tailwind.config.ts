@@ -22,43 +22,33 @@ export default {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        background: "#F1F1F1",
+        foreground: "#333333",
         primary: {
-          DEFAULT: "#1A1F2C",
-          foreground: "#FFFFFF",
+          DEFAULT: "#FFFFFF",
+          foreground: "#333333",
         },
         secondary: {
-          DEFAULT: "#403E43",
-          foreground: "#FFFFFF",
+          DEFAULT: "#F3F3F3",
+          foreground: "#555555",
         },
         accent: {
-          DEFAULT: "#8E9196",
+          DEFAULT: "#1EAEDB",
           foreground: "#FFFFFF",
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          DEFAULT: "#FF4444",
+          foreground: "#FFFFFF",
         },
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        lg: "8px",
+        md: "6px",
+        sm: "4px",
       },
-      keyframes: {
-        slideIn: {
-          "0%": { transform: "translateY(10px)", opacity: "0" },
-          "100%": { transform: "translateY(0)", opacity: "1" },
-        },
-        fadeOut: {
-          "0%": { opacity: "1" },
-          "100%": { opacity: "0" },
-        },
-      },
-      animation: {
-        slideIn: "slideIn 0.2s ease-out",
-        fadeOut: "fadeOut 0.2s ease-out",
+      boxShadow: {
+        'card': '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+        'hover': '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
       },
     },
   },

@@ -36,9 +36,9 @@ interface TodoItemProps {
 }
 
 const priorityColors = {
-  low: "bg-blue-500",
-  medium: "bg-yellow-500",
-  high: "bg-red-500",
+  low: "bg-blue-400",
+  medium: "bg-yellow-400",
+  high: "bg-red-400",
 };
 
 const TodoItem = ({
@@ -74,31 +74,33 @@ const TodoItem = ({
       <div
         onClick={() => !isEditing && onSetActive(id)}
         className={cn(
-          "group flex flex-col p-4 mb-2 rounded-lg transition-all duration-200",
-          "bg-secondary/50 backdrop-blur-sm hover:bg-secondary",
-          "animate-slideIn cursor-pointer",
-          completed && "opacity-50",
+          "group flex flex-col p-4 mb-3 rounded-lg transition-all duration-200",
+          "bg-primary shadow-card hover:shadow-hover",
+          "animate-slideIn cursor-pointer border border-gray-100",
+          completed && "opacity-75",
           isActive && "ring-2 ring-accent"
         )}
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={(e) => {
                 e.stopPropagation();
                 onComplete(id);
               }}
               className={cn(
-                "w-6 h-6 rounded-full border-2 flex items-center justify-center",
+                "w-6 h-6 rounded-full border-2 flex items-center justify-center p-0",
                 "transition-colors duration-200",
                 completed ? "border-accent bg-accent" : "border-accent"
               )}
             >
               {completed && <Check size={14} className="text-white" />}
-            </button>
+            </Button>
             
             {isEditing ? (
-              <div className="flex flex-col gap-2" onClick={(e) => e.stopPropagation()}>
+              <div className="flex flex-col gap-2 w-full" onClick={(e) => e.stopPropagation()}>
                 <Input
                   value={editedText}
                   onChange={(e) => setEditedText(e.target.value)}
@@ -111,47 +113,52 @@ const TodoItem = ({
                   placeholder="Add notes..."
                   className="bg-secondary"
                 />
-                <button
+                <Button
                   onClick={handleUpdate}
-                  className="text-accent hover:text-white transition-colors"
+                  variant="ghost"
+                  className="text-accent hover:text-accent/80"
                 >
                   Save
-                </button>
+                </Button>
               </div>
             ) : (
               <div className="flex flex-col">
                 <span className={cn(
-                  "text-white transition-all duration-200",
-                  completed && "line-through"
+                  "text-foreground font-medium transition-all duration-200",
+                  completed && "line-through text-secondary-foreground"
                 )}>
                   {text}
                 </span>
-                <div className="flex items-center gap-2 text-xs">
-                  <span className="text-accent">{category}</span>
+                <div className="flex items-center gap-2 text-xs mt-1">
+                  <span className="text-secondary-foreground bg-secondary px-2 py-1 rounded">
+                    {category}
+                  </span>
                   <div className={cn(
                     "w-2 h-2 rounded-full",
                     priorityColors[priority]
                   )} />
                   {dueDate && (
-                    <div className="flex items-center text-accent">
+                    <div className="flex items-center text-secondary-foreground">
                       <Calendar size={12} className="mr-1" />
                       {format(new Date(dueDate), "MMM d, yyyy")}
                     </div>
                   )}
                   {recurring && (
-                    <span className="text-accent">
+                    <span className="text-secondary-foreground">
                       Recurring: {recurring}
                     </span>
                   )}
                   {reminder && (
-                    <div className="flex items-center text-accent">
+                    <div className="flex items-center text-secondary-foreground">
                       <Bell size={12} className="mr-1" />
                       {format(new Date(reminder), "MMM d, HH:mm")}
                     </div>
                   )}
                 </div>
                 {notes && (
-                  <p className="text-sm text-accent mt-2">{notes}</p>
+                  <p className="text-sm text-secondary-foreground mt-2 bg-secondary p-2 rounded">
+                    {notes}
+                  </p>
                 )}
               </div>
             )}
@@ -166,19 +173,23 @@ const TodoItem = ({
               }}
               className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
             >
-              <Edit2 className="h-5 w-5 text-accent hover:text-white transition-colors" />
+              <Edit2 className="h-5 w-5 text-secondary-foreground hover:text-accent transition-colors" />
             </Button>
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={(e) => {
                 e.stopPropagation();
                 setShowDeleteDialog(true);
               }}
               className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
             >
-              <Trash2 className="h-5 w-5 text-accent hover:text-red-400 transition-colors" />
-            </button>
+              <Trash2 className="h-5 w-5 text-secondary-foreground hover:text-destructive transition-colors" />
+            </Button>
             {subtasks && subtasks.length > 0 && (
-              <button
+              <Button
+                variant="ghost"
+                size="icon"
                 onClick={(e) => {
                   e.stopPropagation();
                   setShowSubtasks(!showSubtasks);
@@ -186,11 +197,11 @@ const TodoItem = ({
                 className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
               >
                 {showSubtasks ? (
-                  <ChevronUp className="h-5 w-5 text-accent" />
+                  <ChevronUp className="h-5 w-5 text-secondary-foreground" />
                 ) : (
-                  <ChevronDown className="h-5 w-5 text-accent" />
+                  <ChevronDown className="h-5 w-5 text-secondary-foreground" />
                 )}
-              </button>
+              </Button>
             )}
           </div>
         </div>
