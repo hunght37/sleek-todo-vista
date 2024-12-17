@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
+import { Todo } from "@/types/todo";
 import {
   AlertDialog,
   AlertDialogAction,
